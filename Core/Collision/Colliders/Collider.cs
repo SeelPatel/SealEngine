@@ -34,6 +34,8 @@ namespace SealEngine.Core.Collision
             return new Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
         }
 
+        // Generate lines from a list of consecutive points
+
         public Line[] LinesFromPoints(Vector2[] points)
         {
             int numPoints = points.Length;
@@ -62,7 +64,7 @@ namespace SealEngine.Core.Collision
         }
 
 
-        // Polygon Utils
+        // Get Rectangular Bounds of a polygon
 
         public Rectangle GetPolygonBounds(Vector2[] points)
         {
@@ -84,7 +86,7 @@ namespace SealEngine.Core.Collision
             return new Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
         }
 
-        // SAT Methods
+        // Use Seperating Axis Theorem to check collision between two polygons
 
         public Hit CheckSATCollision(Line[] poly1, Line[] poly2)
         {
@@ -103,6 +105,8 @@ namespace SealEngine.Core.Collision
 
             return hit;
         }
+
+        // Find the hitpoints of two colliding polygons  via Line collision
 
         public Vector2[] FindPolygonHitpoints(Line[] poly1, Line[] poly2)
         {
@@ -123,6 +127,8 @@ namespace SealEngine.Core.Collision
 
             return collisionPoints.ToArray();
         }
+
+        // Check seperating axes to determine if polygons are colliding
 
         private bool CheckSATAxes(Vector2[] axes, Line[] poly1, Line[] poly2)
         {
@@ -146,6 +152,8 @@ namespace SealEngine.Core.Collision
 
             return (x.a <= y.b) && (y.a <= x.b);
         }
+
+        // Get the the progection of the polygon on the axis
 
         private Interval GetSeperatingAxisInterval(Vector2 axis, Line[] lines)
         {            
@@ -181,6 +189,8 @@ namespace SealEngine.Core.Collision
             return interval;
         }
 
+        // Generate seperating axes from a polygon
+
         private Vector2[] GenerateSATAxes(Line[] lines)
         {
             Vector2[] axes = new Vector2[lines.Length];
@@ -195,17 +205,21 @@ namespace SealEngine.Core.Collision
             return axes;
         }
 
+        // get a perpendicular vector (-90 degrees)
+
         public Vector2 PerpendicularVector(Vector2 vector2)
         {
             return new Vector2(vector2.Y, -vector2.X);
         }
+
+        // Perform scalar projection of the point on the axis
 
         private float ScalarProjection(Vector2 axis, Vector2 point)
         {
             return Vector2.Dot(axis, point) / axis.Length();
         }
 
-        // Structs
+        // Structs for hit information
 
         public struct Hit
         {

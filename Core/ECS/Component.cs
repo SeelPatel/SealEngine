@@ -14,6 +14,7 @@ namespace SealEngine.Core.ECS
         public abstract void Update();
         public abstract void Init();
 
+        // Get a Component attached to the entity of this comoponent
         public T GetComponent<T>() where T : Component
         {
             if (entity != null)

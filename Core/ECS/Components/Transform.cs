@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace SealEngine.Core.ECS.Components
 {
+    // Component to hold positonal information of the entity
     class Transform : Component
-    {
+    {        
         public Vector2 position = Vector2.Zero;
 
         public override void Init()

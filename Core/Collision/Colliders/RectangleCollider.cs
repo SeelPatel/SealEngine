@@ -38,6 +38,8 @@ namespace SealEngine.Core.Collision.Colliders
             bounds.Height = (int)size.Y;
         }
 
+        // Check raycast collision
+
         public override RaycastHit CheckRay(Vector2 start, Vector2 direction)
         {
             Vector2[] points = GetPoints();
@@ -72,6 +74,8 @@ namespace SealEngine.Core.Collision.Colliders
             return raycastHit;
         }
 
+        // check collisoin of polygon with this rectangle using SAT
+
         public override Hit CheckPolygonCollision(Vector2[] points)
         {
             Line[] polygonLines = LinesFromPoints(points);
@@ -80,6 +84,8 @@ namespace SealEngine.Core.Collision.Colliders
 
             return CheckSATCollision(polygonLines, rectLines);
         }
+
+        // Get the points of the rectangle
 
         public Vector2[] GetPoints()
         {           
@@ -93,6 +99,7 @@ namespace SealEngine.Core.Collision.Colliders
             throw new NotImplementedException();
         }
 
+        // Return the bounds of the rectangle
         public override Rectangle GetRectangleBounds()
         {
             return bounds;

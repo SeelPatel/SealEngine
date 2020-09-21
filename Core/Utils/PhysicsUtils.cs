@@ -10,6 +10,7 @@ namespace SealEngine.Core.Utils
 {
     class PhysicsUtils
     {
+        // Check for the collision of two lines using cramers rule
         public static LineHit CheckLineCollision(Vector2 p1, Vector2 p2, Vector2 q1, Vector2 q2)
         {
             Vector2 a = p2 - p1;

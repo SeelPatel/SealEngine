@@ -12,6 +12,7 @@ namespace SealEngine.Core.Collision
 {
     class PhysicsSystem
     {
+        // List of all colliders in the current physics system
         private List<Collider> colliders;
 
         public PhysicsSystem()
@@ -19,13 +20,13 @@ namespace SealEngine.Core.Collision
             colliders = new List<Collider>();
         }
 
+        // Add collider to the system
         public void AddCollider(Collider collider)
         {
             colliders.Add(collider);
         }
-
-        // Raycasting 
-
+        
+        // Do a raycast and return information about the closest hitpoint
         public RaycastHit Raycast(Vector2 start, Vector2 direction)
         {
             Rectangle bounds = GetRaycastBounds(start, direction);
@@ -33,7 +34,9 @@ namespace SealEngine.Core.Collision
             RaycastHit closest = null;
                         
             foreach (Collider collider in colliders)
-            {              
+            {   
+                // Check if collision is possible by checking bounds
+                // TODO: add code to check horizontal or vertical intersection of a ray and collider bounds.
                 if (collider.GetRectangleBounds().Intersects(bounds) || direction.X == 0 || direction.Y == 0)
                 {                   
                     RaycastHit hit = collider.CheckRay(start, direction);
@@ -51,9 +54,8 @@ namespace SealEngine.Core.Collision
             return closest;
         }
 
-        // Seperating Axis Theorem
-
-        // Make SAT Controller class for player
+        // Use Seperating Axis Theorem to resolve polygon collision
+        // TODO: Get approximate collision point using the minimum seperating vector
 
         public PolygonHit CheckPolygonCollison(Vector2[] points)
         {
@@ -67,6 +69,7 @@ namespace SealEngine.Core.Collision
             
             foreach (Collider collider in colliders)
             {
+                // Check if collision is possible by checking bounds
                 if (collider.GetRectangleBounds().Intersects(bounds) || bounds.Width == 0 || bounds.Height == 0)
                 {
                     Hit hit = collider.CheckPolygonCollision(points);     
@@ -75,6 +78,7 @@ namespace SealEngine.Core.Collision
                     {
                         polygonHit.hit = true;
                         
+                        // TODO: Get hitpoints using SAT result instead of line collisions
                         foreach(Vector2 point in hit.hitpoints)
                         {
                             if (!closestPointSet || Vector2.Distance(polygonCenter, point) < Vector2.Distance(polygonCenter, closestPoint))
@@ -92,6 +96,7 @@ namespace SealEngine.Core.Collision
             return polygonHit;
         }
 
+        // Get center of polygon by averaging the position of the verticies
         public Vector2 GetPolygonCenter(Vector2[] points)
         {
             int numVectors = points.Length;
@@ -104,6 +109,7 @@ namespace SealEngine.Core.Collision
             return sum / numVectors;
         }
 
+        // Use Line collisions to determine contact points of two colliding polygons         
         public Vector2[] FindPolygonHitpoints(Line[] poly1, Line[] poly2)
         {
             List<Vector2> collisionPoints = new List<Vector2>();
@@ -125,8 +131,12 @@ namespace SealEngine.Core.Collision
         }
         
 
-        // Generating Bounds
+        // Generating Bounds to filter which colliders may be colliding
+        //TODO: For colliders, consider caching these bounds for efficiancy
 
+        /*
+        Generate collision bounds for raycasts
+        */
         private Rectangle GetRaycastBounds(Vector2 start, Vector2 direction)
         {
             Vector2 end = start + direction;
@@ -140,6 +150,10 @@ namespace SealEngine.Core.Collision
             return new Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
         }
 
+        
+        /*
+        Generate collision bounds for polygons
+        */
         public Rectangle GetPolygonBounds(Vector2[] points)
         {
             int xMax = (int)points[0].X;

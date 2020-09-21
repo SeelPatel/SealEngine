@@ -8,6 +8,7 @@ namespace SealEngine.Core.Utils
 {
     class SealMath
     {
+        // Check if two numbers are near equal. For float comparision.
         public static bool Approximately(float a, float b)
         {
             float absA = Math.Abs(a);

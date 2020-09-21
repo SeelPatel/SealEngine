@@ -27,12 +27,16 @@ namespace SealEngine.Core.ECS
             this.physics = new PhysicsSystem();
         }
 
+        // Initialize Scene. Scene is setup here
         public abstract void Init();
 
+        // Render Scene. Everything is rendered here
         public abstract void Render();
 
+        // Update Scene. Logic is updated here
         public abstract void Update();
 
+        // Update all the entities of this scene
         public void UpdateEntities()
         {
             foreach (Entity entity in entities)
@@ -41,6 +45,7 @@ namespace SealEngine.Core.ECS
             }
         }       
         
+        // Initialize all the entities of this scene
         public void InitEntities()
         {
             foreach (Entity entity in entities)

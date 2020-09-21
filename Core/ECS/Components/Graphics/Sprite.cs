@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace SealEngine.Core.ECS.Components.Graphics
 {
+    // Component that holds the sprite to be rendered by SpriteRenderer
     class Sprite : Component
     {
         public Texture2D currentTexture;

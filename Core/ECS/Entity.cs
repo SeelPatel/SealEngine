@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SealEngine.Core.ECS
 {   
     class Entity
-    {
+    {    
         private Dictionary<String, Component> components;
         public PhysicsSystem physics;
 
@@ -24,6 +24,7 @@ namespace SealEngine.Core.ECS
             this.physics = physics;
         }
 
+        // Initialize all the components of this entity
         public void InitComponents()
         {
             foreach (String key in components.Keys)
@@ -32,6 +33,7 @@ namespace SealEngine.Core.ECS
             }
         }
 
+        // Add a component to this entity
         public void AddComponent(Component component)
         {            
             components[component.GetType().Name] = component;
@@ -44,6 +46,7 @@ namespace SealEngine.Core.ECS
             }
         }
 
+        // Check if this entity has a specfic type of component
         public bool HasComponent<T> () where T : Component
         {
             String type = typeof(T).Name;
@@ -51,6 +54,7 @@ namespace SealEngine.Core.ECS
             return components.ContainsKey(type);
         }
 
+        // Get a component attached to this entity
         public T GetComponent<T>() where T : Component
         {
             String type = typeof(T).Name;            
@@ -63,6 +67,7 @@ namespace SealEngine.Core.ECS
             return null;
         }
 
+        // Update all the components of this entity
         public void UpdateComponents()
         {
             foreach(String key in components.Keys) {

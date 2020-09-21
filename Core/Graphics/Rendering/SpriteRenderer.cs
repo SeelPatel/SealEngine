@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace SealEngine.Core.Graphics.Rendering
 {
+    // Renderer responsible for rendering sprites
     class SpriteRenderer : Renderer
     {        
         public override void RenderEntities(List<Entity> entities, Camera camera, RenderTarget2D target, SpriteBatch spriteBatch)

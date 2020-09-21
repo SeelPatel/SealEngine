@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace SealEngine.Core.Collision
 {
+    // Class to store information about a raycast collision
     class RaycastHit
     {
         public Vector2 point;

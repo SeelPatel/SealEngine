@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace SealEngine.Core.Graphics.Rendering
 {
+    // Renderer to provide base part of rendering pipeline
+    // TODO: Abstract out a RenderPipeline Object
     abstract class Renderer
     {    
         public abstract void RenderEntities(List<Entity> entities, Camera camera, RenderTarget2D target, SpriteBatch spriteBatch);
